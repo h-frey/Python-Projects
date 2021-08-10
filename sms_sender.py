@@ -1,7 +1,7 @@
 # importing the client from twilio
 from twilio.rest import Client
 account_sid = "######"
-auth_token = "#######"
+auth_token = "#########"
 # instantiating the Client
 client = Client(account_sid, auth_token)
 # sending message
