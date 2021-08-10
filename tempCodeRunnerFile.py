@@ -1,1 +1,0 @@
-e,app_icon=None,timeout=20)
