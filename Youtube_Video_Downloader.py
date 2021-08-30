@@ -1,10 +1,15 @@
 from pytube import *
 import tkinter as tk
 
+from pytube.helpers import regex_search
+
 
 def cli():
-    link = input("Enter the link: ")
-    yt = YouTube(link)
+    try:
+        link = input("Enter the link: ")
+        yt = YouTube(link)
+    except RegexMatchError:
+        print("Enter a correct link")
 
     def details(vid):
         print()
@@ -12,7 +17,7 @@ def cli():
         print((" "*20)+"Number of views: ", yt.views)
         print((" "*20)+"Video length: ", yt.length, "seconds")
         print((" "*20)+"Ratings: ", yt.rating)
-        print((" "*20)+"Video Size: " +str(int(vid.filesize)//1024//1024)+" MBS")
+        #print((" "*20)+"Video Size: " +str(int(yt.filesize)//1024//1024)+" MBS")
         print((" "*20)+"Downloading...")
         print()
 
@@ -21,12 +26,12 @@ def cli():
         if choice == "1":
             ys1 = yt.streams.filter(res="480p", progressive=True).first()
             details(ys1)
-            #ys1.download("C:\\Users\\Humphrey\\Downloads")
+            ys1.download("C:\\Users\\Humphrey\\Downloads")
 
         elif choice == "2":
             ys = yt.streams.get_highest_resolution()
             details(ys)
-            #ys.download("C:\\Users\\Humphrey\\Downloads")
+            ys.download("C:\\Users\\Humphrey\\Downloads")
 
         with open("C:\\Users\\Humphrey\\Code Scripts\\Personal Projects\\Youtube_Video_Downloader.txt", "a") as file:
             file.write(yt.title+" "*10 + str(yt.length//(60)) +
@@ -53,5 +58,12 @@ def cli():
     else:
         down_load()
 
-
-cli()
+run=1
+while run:
+    cli()
+    ans=input("Press 'y' to quit or any other key to continue: ")
+    ans_1=input("Press 'y' again to quit: ")
+    if ans == "y" and ans_1 =="y":
+        run=0
+    else:
+        continue
