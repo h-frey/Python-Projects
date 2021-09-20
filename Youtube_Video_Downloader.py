@@ -1,5 +1,4 @@
 from pytube import *
-import tkinter as tk
 
 from pytube.helpers import regex_search
 
