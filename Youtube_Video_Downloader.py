@@ -4,11 +4,10 @@ from pytube.helpers import regex_search
 
 
 def cli():
-    try:
-        link = input("Enter the link: ")
-        yt = YouTube(link)
-    except RegexMatchError:
-        print("Enter a correct link")
+    
+    link = input("Enter the link: ")
+    yt = YouTube(link)
+    
 
     def details(vid):
         print()
