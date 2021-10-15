@@ -2,13 +2,13 @@ import smtplib
 import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-
+import config
 
 port = 465  # For SSL
-password = "Humphrey@900"
-smtp_server = "smtp.gmail.com"
-sender_email = "hnyanzi320@gmail.com"
-receiver_email = "hnyanzi32@gmail.com"
+password = config.email_password
+smtp_server = config.email_smtp_server
+sender_email = config.email_sender_email
+receiver_email = config.email_receiver_email
 
 message = MIMEMultipart("alternative")
 message["Subject"] = "Last Python Sample"
@@ -34,7 +34,7 @@ html = """\
        has many great tutorials.<br>
        My name is Humphrey Nyanzi and I love Programming though I study Sports Science at college.
     </p>
-    <input type="button" value="Click here">
+    <input style = "background_color":"cyan", type="button" value="Click here">
   </body>
 </html>
 """
@@ -51,6 +51,7 @@ message.attach(part2)
 context = ssl.create_default_context()
 with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
     try:
+        print("Sending email.....")
         server.login(sender_email, password)
         server.sendmail(sender_email, receiver_email, message.as_string())
         print("email sent!")
