@@ -7,6 +7,7 @@ from email_send import send_email
 from sms_sender import send_sms
 
 
+
 def notification(message):
     """makes notification on the desktop"""
     notify = ToastNotifier()
