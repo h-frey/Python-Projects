@@ -4,6 +4,7 @@ from win10toast import ToastNotifier
 from random import randint
 import config
 from email_send import send_email
+from sms_sender import send_sms
 
 
 def notification(message):
@@ -30,6 +31,7 @@ try:
     notification(message)
     read_out_loud(message)
     send_email(message)
+    send_sms(message)
 
 except:
     print("An error occurred")
