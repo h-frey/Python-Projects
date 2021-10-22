@@ -1,7 +1,7 @@
 from notion.client import NotionClient
 import pyttsx3 as speaker
 from win10toast import ToastNotifier
-from random import randint
+import random
 import config
 from email_send import send_email
 from sms_sender import send_sms
@@ -11,8 +11,7 @@ from sms_sender import send_sms
 def notification(message):
     """makes notification on the desktop"""
     notify = ToastNotifier()
-    notify.show_toast("Notion Reads", message, duration=20)
-
+    notify.show_toast("Notion Reads", message, duration=20, threaded=True)
 
 def read_out_loud(message):
     """Reads the message out loud via desktop"""
@@ -21,21 +20,30 @@ def read_out_loud(message):
     speak.say(message)
     speak.runAndWait()
 
-try:
+def get_message():
+    """Connect to the notion api and fetch message"""
     token = config.notion_v2
     client = NotionClient(token_v2=token)
     page = client.get_block(config.notion_site)
     page_elements = page.children
-    item_number = randint(0, len(page_elements))
-    message = page_elements[item_number].title
-    
+    random_block = random.choice(page_elements)
+
+    if random_block.type == "text":
+        message = random_block.title
+        return message
+    else:
+         return get_message()
+
+try:
+    message = get_message()
     notification(message)
     read_out_loud(message)
     send_email(message)
     send_sms(message)
 
 except:
-    print("An error occurred")
+    print("Error Occurred")
+    input()
 
 
 

@@ -7,10 +7,13 @@ def send_sms(message):
     auth_token = config.twilio_auth_token
     client = Client(account_sid, auth_token)
     # sending message
-    message = client.messages.create(
-        body=message,
-        from_="+15405023047",
-        to="+256789748424")
+    try:
+        message = client.messages.create(
+            body=message,
+            from_="+15405023047",
+            to="+256789748424")
+    except:
+        print("Failed to send message")
 
    
     
