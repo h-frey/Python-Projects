@@ -1,6 +1,6 @@
 from pytube import *
 
-from pytube.helpers import regex_search
+
 
 
 def cli():
@@ -8,7 +8,6 @@ def cli():
     link = input("Enter the link: ")
     yt = YouTube(link)
     
-
     def details(vid):
         print()
         print((" "*20)+"Title: ", yt.title)
@@ -31,7 +30,7 @@ def cli():
             details(ys)
             ys.download("C:\\Users\\Humphrey\\Downloads")
 
-        with open("C:\\Users\\Humphrey\\Code Scripts\\Personal Projects\\Youtube_Video_Downloader.txt", "a") as file:
+        with open("C:\\Users\\Humphrey\\Code Scripts\\Personal Scripts\\Youtube_Video_Downloader_history.txt", "a") as file:
             file.write(yt.title+" "*10 + str(yt.length//(60)) +
                     " "*10+str(yt.views))
             file.write("\n")

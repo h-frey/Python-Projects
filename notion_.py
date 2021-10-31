@@ -8,12 +8,12 @@ from sms_sender import send_sms
 
 
 
-def notification(message):
+def notify(message):
     """makes notification on the desktop"""
     notify = ToastNotifier()
     notify.show_toast("Notion Reads", message, duration=20, threaded=True)
 
-def read_out_loud(message):
+def speak(message):
     """Reads the message out loud via desktop"""
     speak = speaker.init()
     speak.setProperty("rate", 150)
@@ -36,8 +36,8 @@ def get_message():
 
 try:
     message = get_message()
-    notification(message)
-    read_out_loud(message)
+    notify(message)
+    speak(message)
     send_email(message)
     send_sms(message)
 
