@@ -1,4 +1,10 @@
 from pytube import *
+import sqlite3
+num = 0
+db_conn = sqlite3.connect("ytdownloads.db")
+cursorObj = db_conn.cursor()
+
+# cursorObj.execute("CREATE TABLE downloads(id integer PRIMARY KEY, title text, views real,length real, rating real)")
 def cli():
     
     link = input("Enter the link: ")
@@ -16,19 +22,21 @@ def cli():
 
     def down_load():
         
-        ys = yt.streams.get_highest_resolution()
-        details(ys)
-        ys.download("C:\\Users\\Humphrey\\Downloads")
-
-        with open("C:\\Users\\Humphrey\\Code Scripts\\Python Scripts\\Youtube_Video_Downloader_history.txt", "a") as file:
-            file.write(yt.title+" "*10 + str(yt.length//(60)) +
-                    " "*10+str(yt.views))
-            file.write("\n")
-            file.close()
+        # ys = yt.streams.get_highest_resolution()
+        # details(ys)
+        # ys.download("C:\\Users\\Humphrey\\Downloads")
+        global num
+        num+=1
+        cursorObj.execute("INSERT INTO downloads VALUES('1','title', 'views', 'length', 'rating')")
+        # with open("C:\\Users\\Humphrey\\Code Scripts\\Python Scripts\\Youtube_Video_Downloader_history.txt", "a") as file:
+        #     file.write(yt.title+" "*10 + str(yt.length//(60)) +
+        #             " "*10+str(yt.views))
+        #     file.write("\n")
+        #     file.close()
         print("Download Complete!!!")
 
    
-        down_load()
+    down_load()
     
 
 run=1
