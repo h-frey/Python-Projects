@@ -1,5 +1,6 @@
 from pytube import *
 import sqlite3
+import os
 num = 0
 db_conn = sqlite3.connect("ytdownloads.db")
 cursorObj = db_conn.cursor()
@@ -22,17 +23,15 @@ def cli():
 
     def down_load():
         
-        # ys = yt.streams.get_highest_resolution()
-        # details(ys)
-        # ys.download("C:\\Users\\Humphrey\\Downloads")
+        ys = yt.streams.get_highest_resolution()
+        details(ys)
+        # path = os.path.join(os.path.expanduser('~'), 'documents', 'python', 'file.txt')
+        # print(path)
+        path = os.path.join(os.path.expanduser('~'),'Downloads')
+        ys.download(path)
         global num
         num+=1
         cursorObj.execute("INSERT INTO downloads VALUES('1','title', 'views', 'length', 'rating')")
-        # with open("C:\\Users\\Humphrey\\Code Scripts\\Python Scripts\\Youtube_Video_Downloader_history.txt", "a") as file:
-        #     file.write(yt.title+" "*10 + str(yt.length//(60)) +
-        #             " "*10+str(yt.views))
-        #     file.write("\n")
-        #     file.close()
         print("Download Complete!!!")
 
    
